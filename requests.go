@@ -1,13 +1,11 @@
-package httph
+package astkit
 
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/fhAnso/ASTkit/client"
 )
 
-func SendRequest(client *client.ASTkitClient, method string, url string) (*http.Response, error) {
+func SendRequest(client *ASTkitClient, method string, url string) (*http.Response, error) {
 	request, err := http.NewRequest(method, url, nil)
 	if err != nil {
 		return nil, err

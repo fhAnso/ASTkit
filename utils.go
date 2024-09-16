@@ -1,4 +1,4 @@
-package httph
+package astkit
 
 import (
 	"fmt"

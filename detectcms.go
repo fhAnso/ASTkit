@@ -1,12 +1,10 @@
-package infoga
+package astkit
 
 import (
 	"fmt"
 	"io"
 	"net/http"
 	"strings"
-
-	astkitClient "github.com/fhAnso/ASTkit/client"
 )
 
 var acceptedCMS = map[string][]string{
@@ -30,7 +28,7 @@ var acceptedCMS = map[string][]string{
 	"Weebly":           {"weebly"},
 }
 
-func ASTkitDetectCMS(client *astkitClient.ASTkitClient) (string, error) {
+func ASTkitDetectCMS(client *ASTkitClient) (string, error) {
 	response, err := http.Get(client.URL)
 	if err != nil {
 		return "", fmt.Errorf("failed to sent GET: %s", err)

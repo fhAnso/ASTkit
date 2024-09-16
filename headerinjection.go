@@ -1,4 +1,4 @@
-package httph
+package astkit
 
 import (
 	"bufio"
@@ -6,12 +6,10 @@ import (
 	"net"
 	"net/http"
 	"strings"
-
-	astkitClient "github.com/fhAnso/ASTkit/client"
 )
 
 type HeaderInjectionConfig struct {
-	Client    *astkitClient.ASTkitClient
+	Client    *ASTkitClient
 	UserAgent string
 	Host      string
 	Port      uint16
