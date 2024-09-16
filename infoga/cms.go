@@ -1,4 +1,4 @@
-package m1
+package infoga
 
 import (
 	"fmt"
