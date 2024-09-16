@@ -1,3 +1,3 @@
-module github.com/fhAnso/ASTkit
+module github.com/fhAnso/astkit
 
 go 1.22.5
