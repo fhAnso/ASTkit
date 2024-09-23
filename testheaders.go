@@ -14,7 +14,7 @@ const defaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 type TestType int
 
 const (
-	CookieInjection TestType = iota
+	CRLF TestType = iota
 	CLTE
 	TECL
 )
@@ -33,7 +33,7 @@ func requestCookies(config *HeaderTestingConfig) ([]*http.Cookie, error) {
 	if config.Port == 443 || config.Port == 8443 {
 		url = MakeUrl(HTTP(Secure), config.Host)
 	}
-	response, err := SendRequest(config.Client, http.MethodGet, url)
+	response, err := SendRequestHTTP(config.Client, http.MethodGet, url)
 	if response == nil {
 		return nil, fmt.Errorf("unable to send request to target: %s", err)
 	}
@@ -48,7 +48,7 @@ func requestCookies(config *HeaderTestingConfig) ([]*http.Cookie, error) {
 func setupRawHttpRequest(config HeaderTestingConfig) (string, error) {
 	var rawHttpRequest string
 	switch config.Test {
-	case CookieInjection:
+	case CRLF:
 		if len(config.Payload) == 0 {
 			return "", errors.New("no payload configured")
 		}
@@ -128,8 +128,8 @@ func runTest(config HeaderTestingConfig, payload string) (string, error) {
 				result.WriteString("TECL")
 			case CLTE:
 				result.WriteString("CLTE")
-			case CookieInjection:
-				return fmt.Sprintf("Cookie set successfully: %s\n", payload), nil
+			case CRLF:
+				return fmt.Sprintf("Test cookie reflected in response: %s\n", payload), nil
 			}
 			result.WriteString(" test succeed\n")
 			return result.String(), nil

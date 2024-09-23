@@ -5,14 +5,14 @@ import (
 	"net/http"
 )
 
-func SendRequest(client *ASTkitClient, method string, url string) (*http.Response, error) {
+func SendRequestHTTP(client *ASTkitClient, method string, url string) (*http.Response, error) {
 	request, err := http.NewRequest(method, url, nil)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to setup %s request: %s", method, err)
 	}
 	response, err := client.HttpClient.Do(request)
 	if err != nil {
-		return nil, fmt.Errorf("failed to send %s: %s", method, err)
+		return nil, fmt.Errorf("could not send %s to %s: %s", method, url, err)
 	}
 	return response, nil
 }

@@ -7,11 +7,13 @@ import (
 	"time"
 )
 
+type ASTkitHttpClient = http.Client
+
 type ASTkitClient struct {
 	URL        string
 	Timeout    int // ms
 	EnableTor  bool
-	HttpClient *http.Client // Defined in ASTkitHttpClientInit()
+	HttpClient *ASTkitHttpClient // Defined in ASTkitHttpClientInit()
 }
 
 func setupProxy(proxyClient *http.Client, proxyUrl string) error {

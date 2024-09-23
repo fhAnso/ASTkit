@@ -7,6 +7,10 @@ import (
 	"strings"
 )
 
+type ASTkitDetect struct {
+	Response *http.Response
+}
+
 var acceptedCMS = map[string][]string{
 	"WordPress":        {"wp-content", "wp-includes"},
 	"Joomla":           {"Joomla!"},
@@ -28,13 +32,9 @@ var acceptedCMS = map[string][]string{
 	"Weebly":           {"weebly"},
 }
 
-func ASTkitDetectCMS(client *ASTkitClient) (string, error) {
-	response, err := http.Get(client.URL)
-	if err != nil {
-		return "", fmt.Errorf("failed to sent GET: %s", err)
-	}
-	defer response.Body.Close()
-	body, err := io.ReadAll(response.Body)
+func ASTkitDetectCMS(astkitDetect *ASTkitDetect) (string, error) {
+	defer astkitDetect.Response.Body.Close()
+	body, err := io.ReadAll(astkitDetect.Response.Body)
 	if err != nil {
 		return "", fmt.Errorf("an error occured while reading the response body: %s", err)
 	}
