@@ -11,7 +11,7 @@ type ASTkitDetect struct {
 	Response *http.Response
 }
 
-var acceptedCMS = map[string][]string{
+var AcceptedCMS = map[string][]string{
 	"WordPress":        {"wp-content", "wp-includes"},
 	"Joomla":           {"Joomla!"},
 	"Drupal":           {"Drupal"},
@@ -38,7 +38,7 @@ func ASTkitDetectCMS(astkitDetect *ASTkitDetect) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("an error occured while reading the response body: %s", err)
 	}
-	for cmsName, indicators := range acceptedCMS {
+	for cmsName, indicators := range AcceptedCMS {
 		for idx := 0; idx < len(indicators); idx++ {
 			if strings.Contains(string(body), indicators[idx]) {
 				return cmsName, nil
